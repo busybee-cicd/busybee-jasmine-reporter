@@ -1,5 +1,7 @@
 const BusybeeRally = require('./lib/BusybeeRally');
 const _ = require('lodash');
+const Logger = require('./lib/logger');
+const logger = new Logger();
 
 class BusybeeJasmineReporter {
   constructor(opts) {
@@ -79,57 +81,111 @@ class BusybeeJasmineReporter {
     console.log(JSON.stringify(result, null, '\t'));
   }
 
-  jasmineDone() {
-    // write the json results
-    console.log(`jasmineDone`);
-    // all TestCases will be added to
-    if (this.opts.rally) {
-      this.publishToRally();
-    }
+  publishToRally(cb) {
+    return new Promise((resolve, reject) => {
+      let step = 'Publish to Rally';
+      const config = this.opts.rally;
 
-    // pull down the existing testsets
-  }
+      if (!config.project) {
+        logger.info(`'rally.project' is a required field. skipping ${step} step.`);
+        return;
+      }
+      logger.debug(step);
 
-  publishToRally() {
-    let step = 'Publish to Rally';
-    const config = this.opts.rally;
+      const rally = new BusybeeRally(config);
 
-    if (!config.project) {
-      console.log(`'rally.project' is a required field. skipping ${step} step.`);
-      return;
-    }
-    console.log(step);
+      let workspaceId;
+      let projectId;
+      let testFolderId;
 
+      rally.getObjectByName('workspace', config.workspace)
+          .then((id) => {
+            workspaceId = id;
+            return rally.getObjectByName('project', config.project, workspaceId);
+          })
+          .then((id) => {
+            logger.debug(`then ${id}`);
+            projectId = id;
+            return rally.getOrCreateObjectByName('testfolder', config.testFolder, workspaceId, projectId);
+          })
+          .then((id) => {
+            testFolderId = id;
+            logger.debug(`${workspaceId} | ${projectId} | ${testFolderId}`);
+          })
+          .then(() => {
+            rally.getTestCases(testFolderId)
+                .then((knownRallyTestCases) => {
 
-    const rally = new BusybeeRally(config);
+                  // create a map of name/id pairs to make lookup easier in the next step
+                  let knownRallyCasesNameIdMap = {};
+                  knownRallyTestCases.forEach((testCase) => {
+                    knownRallyCasesNameIdMap[testCase._refObjectName] = testCase.ObjectID;
+                  });
 
-    let workspaceId;
-    let projectId;
+                  logger.debug(knownRallyTestCases);
+                  // 1. iterate each testSuiteResult
+                  // 2. if notKnownToExist
+                  //      create a promise to create the TestCase
+                  //    end
+                  // 3. add a TestCaseResult to the TestCase
+                  let promises = [];
+                  _.forEach(this.testSuiteResults, (suiteRes, suiteName) => {
+                    let verdict = 'Pass';
+                    if (suiteRes.failedExpectations && suiteRes.failedExpectations.length > 0) {
+                      verdict = 'Fail';
+                    }
+                    let testCaseResultData = {
+                      'Verdict': verdict,
+                      'Notes': JSON.stringify(suiteRes.specs, null, '\t'),
+                      'Date': new Date().toISOString(),
+                      'Build': new Date().toISOString()
+                    };
 
-    rally.getObjectByName('workspace', config.workspace)
-        .then((id) => {
-          workspaceId = id;
-          return this.getObjectByName('project', config.project, workspaceId);
-        })
-        .then((id) => {
-          projectId = id;
-          return this.getOrCreateObjectByName('testfolder', config.testFolder, workspaceId, projectId);
-        })
-        .then((id) => {
-          testFolderId = id;
-          console.log(`${workspaceId} | ${projectId} | ${testFolderId}`);
-        })
-        .then(() => {
-          rally.getTestCases(testFolderId)
-              .then((knownTestCases) => {
-                console.log(JSON.stringify(knownTestCases, null, '\t'));
-                // iterate each testSuiteResult and append an entry or add a new testSuite (testcase in rally) if not found
-                _.forEach(this.testSuiteResults, (suiteRes, suiteId) => {
-                  rally.getOrCreateTestCaseId(suiteId, workspaceId, projectId)
-                       .then((testCaseId))
+                    if (!knownRallyCasesNameIdMap[suiteName]) {
+                      logger.debug(`TestCase not in Rally: ${suiteName}`);
+                      // if this isn't a known TestCase we need to create one
+                      // in Rally first and return its id
+                      let testCaseData = {
+                        'Name': suiteName,
+                        'Type': 'Regression',
+                        'Method': 'Automated',
+                        'TestFolder': `/testfolder/${testFolderId}`
+                      };
+                      promises.push(new Promise((resolve, reject) => {
+                        rally.createObject('testCase', testCaseData)
+                             .then((testCaseId) => {
+                               testCaseResultData['TestCase'] = `/testcase/${testCaseId}`;
+                               rally.createTestCaseResult(testCaseResultData, testCaseId)
+                                    .then(() => {
+                                      resolve();
+                                    });
+                             })
+                             .catch((err) => {
+                               reject(err);
+                             });
+                      }));
+                    } else {
+                      logger.debug(`TestCase found in Rally: ${suiteName}`);
+                      promises.push(new Promise((resolve, reject) => {
+                        // add a TestCaseResult for this existing TestCase
+                        testCaseResultData['TestCase'] = knownRallyCasesNameIdMap[suiteName];
+                        rally.createTestCaseResult(testCaseResultData)
+                             .then(() => {
+                               resolve();
+                             })
+                             .catch((err) => {
+                               reject(err);
+                             });
+                      }));
+                    }
+                  });
+
+                  Promise.all(promises)
+                    .then(values => { resolve(values); })
+                    .catch(err => { reject(err); })
                 });
-              });
-        })
+          }); // get testCases
+    }); // outter promise
 
   }
 
