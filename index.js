@@ -1,6 +1,6 @@
 const BusybeeRally = require('./lib/BusybeeRally');
 const _ = require('lodash');
-const Logger = require('./lib/logger');
+const Logger = require('./lib/Logger');
 const logger = new Logger();
 
 class BusybeeJasmineReporter {
