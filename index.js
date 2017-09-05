@@ -65,6 +65,11 @@ class BusybeeJasmineReporter {
 
     this.testSuiteResults[this.currentSuite]
       .specs.push(_.pick(result, ['description', 'failedExpectations', 'status']));
+
+    // mark the suite as containing failures
+    if (result.failedExpectations && result.failedExpectations.length > 0) {
+      this.testSuiteResults[this.currentSuite].hasFailures = true;
+    }
   }
 
   suiteDone(result) {
@@ -131,7 +136,7 @@ class BusybeeJasmineReporter {
                   let promises = [];
                   _.forEach(this.testSuiteResults, (suiteRes, suiteName) => {
                     let verdict = 'Pass';
-                    if (suiteRes.failedExpectations && suiteRes.failedExpectations.length > 0) {
+                    if (suiteRes.hasFailures) {
                       verdict = 'Fail';
                     }
                     let testCaseResultData = {
