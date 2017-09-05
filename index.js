@@ -95,13 +95,25 @@ class BusybeeJasmineReporter {
                   // 3. add a TestCaseResult to the TestCase
                   let promises = [];
                   _.forEach(this.testSuiteResults, (suiteRes, suiteName) => {
+                    let notes = "";
                     let verdict = 'Pass';
+
                     if (suiteRes.hasFailures) {
                       verdict = 'Fail';
+
+                      if (suiteRes.specs) {
+                        notes = suiteRes.specs.reduce((notesArr, spec) => {
+                          if (spec.failedExpectations && spec.failedExpectations.length > 0) {
+                            notesArr.push(spec);
+                          }
+                          return notesArr;
+                        });
+                      }
                     }
+
                     let testCaseResultData = {
                       'Verdict': verdict,
-                      'Notes': JSON.stringify(suiteRes.specs, null, '\t'),
+                      'Notes': JSON.stringify(notes, null, '\t'),
                       'Date': new Date().toISOString(),
                       'Build': new Date().toISOString()
                     };
