@@ -2,6 +2,7 @@ const BusybeeRally = require('./lib/BusybeeRally');
 const _ = require('lodash');
 const Logger = require('./lib/Logger');
 const logger = new Logger();
+const _async = require('async'); // remove once node 8 is the min req (async/await)
 
 class BusybeeJasmineReporter {
   constructor(opts) {
@@ -30,12 +31,17 @@ class BusybeeJasmineReporter {
   specDone(result) {
     logger.debug(result);
 
-    this.testSuiteResults[this.currentSuite]
-      .specs.push(_.pick(result, ['description', 'failedExpectations', 'status']));
+    let trimmedSpec = _.pick(result, ['description', 'failedExpectations', 'status']);
 
     // mark the suite as containing failures
-    if (result.failedExpectations && result.failedExpectations.length > 0) {
+    if (trimmedSpec.failedExpectations && trimmedSpec.failedExpectations.length > 0) {
       this.testSuiteResults[this.currentSuite].hasFailures = true;
+      browser.takeScreenshot().then((base64PNG) => {
+        trimmedSpec.screenShot = base64PNG;
+        this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
+      });
+    } else {
+      this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
     }
   }
 
@@ -62,7 +68,8 @@ class BusybeeJasmineReporter {
       let workspaceId;
       let projectId;
       let testFolderId;
-
+      let userId;
+      /* A. first we need to figure out our applicable workspaceId, projectId and testFolderId */
       rally.getObjectByName('workspace', config.workspace)
           .then((id) => {
             workspaceId = id;
@@ -76,11 +83,16 @@ class BusybeeJasmineReporter {
           .then((id) => {
             testFolderId = id;
             logger.debug(`${workspaceId} | ${projectId} | ${testFolderId}`);
+            return rally.getUser(config.user)
+          })
+          .then((id) => {
+            logger.debug(`user id ${id}`)
+            userId = id;
           })
           .then(() => {
+            // B. Now that we have our context ID's we can start to set up out TestCases.
             rally.getTestCases(testFolderId)
                 .then((knownRallyTestCases) => {
-
                   // create a map of name/id pairs to make lookup easier in the next step
                   let knownRallyCasesNameIdMap = {};
                   knownRallyTestCases.forEach((testCase) => {
@@ -95,18 +107,16 @@ class BusybeeJasmineReporter {
                   // 3. add a TestCaseResult to the TestCase
                   let promises = [];
                   _.forEach(this.testSuiteResults, (suiteRes, suiteName) => {
-                    let notes = "";
+                    let notes = [];
                     let verdict = 'Pass';
 
                     if (suiteRes.hasFailures) {
                       verdict = 'Fail';
 
                       if (suiteRes.specs) {
-                        notes = suiteRes.specs.reduce((notesArr, spec) => {
-                          if (spec.failedExpectations && spec.failedExpectations.length > 0) {
-                            notesArr.push(spec);
-                          }
-                          return notesArr;
+                        let specsWithErrors = _.filter(suiteRes.specs, (spec) => { return spec.failedExpectations.length > 0; });
+                        specsWithErrors.forEach((spec) => {
+                          notes.push(_.pick(spec, ['description', 'status']));
                         });
                       }
                     }
@@ -132,9 +142,19 @@ class BusybeeJasmineReporter {
                         rally.createObject('testCase', testCaseData)
                              .then((testCaseId) => {
                                testCaseResultData['TestCase'] = `/testcase/${testCaseId}`;
-                               rally.createTestCaseResult(testCaseResultData, testCaseId)
-                                    .then(() => {
-                                      resolve();
+                               rally.createObject('testcaseresult',testCaseResultData)
+                                    .then((testCaseResultId) => {
+                                      if (testCaseResultData.Verdict === 'Fail') {
+                                        this.publishSpecFailureScreenshots(rally, suiteRes, testCaseResultId, workspaceId, userId)
+                                            .then(() => {
+                                              resolve();
+                                            })
+                                            .catch((err) => {
+                                              reject(err);
+                                            });
+                                      } else {
+                                        resolve();
+                                      }
                                     });
                              })
                              .catch((err) => {
@@ -146,9 +166,19 @@ class BusybeeJasmineReporter {
                       promises.push(new Promise((resolve, reject) => {
                         // add a TestCaseResult for this existing TestCase
                         testCaseResultData['TestCase'] = knownRallyCasesNameIdMap[suiteName];
-                        rally.createTestCaseResult(testCaseResultData)
-                             .then(() => {
-                               resolve();
+                        rally.createObject('testcaseresult', testCaseResultData)
+                             .then((testCaseResultId) => {
+                               if (testCaseResultData.Verdict === 'Fail') {
+                                 this.publishSpecFailureScreenshots(rally, suiteRes, testCaseResultId, workspaceId, userId)
+                                     .then(() => {
+                                       resolve();
+                                     })
+                                     .catch((err) => {
+                                       reject(err);
+                                     });
+                               } else {
+                                 resolve();
+                               }
                              })
                              .catch((err) => {
                                reject(err);
@@ -158,12 +188,69 @@ class BusybeeJasmineReporter {
                   });
 
                   Promise.all(promises)
-                    .then(values => { resolve(values); })
-                    .catch(err => { reject(err); })
+                    .then(values => { resolve(values);
+                    })
+                    .catch(err => {
+                      console.log("Errors encountered while pushing results to Rally")
+                      reject(err);
+                    })
                 });
+          })
+          .catch((err) => {
+            logger.error(`Error while fetching Rally content Ids`);
+            logger.error(err.stack);
           }); // get testCases
     }); // outter promise
 
+  }
+
+  publishSpecFailureScreenshots(rally, suiteRes, testCaseResultId, workspaceId, userId) {
+    let screenshotfns = [];
+    suiteRes.specs.forEach((spec) => {
+      screenshotfns.push((cb) => {
+          if (!spec.screenShot) {
+            return cb();
+          }
+
+          let attachmentContent = {
+            Content: spec.screenShot
+          }
+          rally.createObject('attachmentcontent', attachmentContent, workspaceId)
+               .then((attachmentContentId) => {
+                 let attachment = {
+                   Content: `/attachmentcontent/${attachmentContentId}`,
+                   ContentType: 'image/png',
+                   Description: spec.description,
+                   Name: `${spec.description.replace(/[^a-zA-Z ]/g, '').replace(/ /g, '+')}.png`,
+                   User: `/user/${userId}`,
+                   TestCaseResult: `/testcaseresult/${testCaseResultId}`
+                 }
+                 rally.createObject('attachment', attachment)
+                      .then(() => {
+                        logger.debug(`attachment added to ${testCaseResultId}`);
+                        cb();
+                      })
+                      .catch((err) => {
+                        logger.error(`attachment failed to upload for ${testCaseResultId}`);
+                        logger.error(err.stack);
+                        cb(err);
+                      })
+
+               })
+               .catch((err) => {
+                 logger.error(`attachmentcontent failed to upload for ${testCaseResultId}`);
+                 logger.error(err.stack);
+                 cb(err);
+               })
+      });
+    });
+
+    return new Promise((resolve, reject) => {
+      _async.series(screenshotfns, (err, results) => {
+        if (err) return reject(err);
+        resolve(results);
+      })
+    })
   }
 
 }
