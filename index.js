@@ -33,23 +33,30 @@ class BusybeeJasmineReporter {
 
     let trimmedSpec = _.pick(result, ['description', 'failedExpectations', 'status']);
 
-    // mark the suite as containing failures
-    if (trimmedSpec.failedExpectations && trimmedSpec.failedExpectations.length > 0) {
-      this.testSuiteResults[this.currentSuite].hasFailures = true;
-      browser.takeScreenshot().then((base64PNG) => {
-        trimmedSpec.screenShot = base64PNG;
-        this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
-      });
-    } else {
-      this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
-    }
+    // add any browser error logs
+    browser.manage().logs().get('browser').then((browserLogs) => {
+       if (browserLogs.length > 0) {
+         trimmedSpec.browserLogs = browserLogs;
+       }
+       // mark the suite as containing failures
+       if (trimmedSpec.failedExpectations && trimmedSpec.failedExpectations.length > 0) {
+         this.testSuiteResults[this.currentSuite].hasFailures = true;
+         browser.takeScreenshot().then((base64PNG) => {
+           trimmedSpec.screenShot = base64PNG;
+           this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
+         });
+       } else {
+         this.testSuiteResults[this.currentSuite].specs.push(trimmedSpec);
+       }
+    });
+
   }
 
   suiteDone(result) {
     console.log(`suiteDone: ${result.description}`);
+    logger.debug(result);
     this.testSuiteResults[this.currentSuite].status = result.status;
     this.testSuiteResults[this.currentSuite].failedExpectations = result.failedExpectations;
-    logger.debug(result);
   }
 
   publishToRally(cb) {
@@ -116,7 +123,7 @@ class BusybeeJasmineReporter {
                       if (suiteRes.specs) {
                         let specsWithErrors = _.filter(suiteRes.specs, (spec) => { return spec.failedExpectations.length > 0; });
                         specsWithErrors.forEach((spec) => {
-                          notes.push(_.pick(spec, ['description', 'status']));
+                          notes.push(_.pick(spec, ['description', 'status', 'browserLogs']));
                         });
                       }
                     }
