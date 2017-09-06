@@ -119,13 +119,10 @@ class BusybeeJasmineReporter {
 
                     if (suiteRes.hasFailures) {
                       verdict = 'Fail';
+                    }
 
-                      if (suiteRes.specs) {
-                        let specsWithErrors = _.filter(suiteRes.specs, (spec) => { return spec.failedExpectations.length > 0; });
-                        specsWithErrors.forEach((spec) => {
-                          notes.push(_.pick(spec, ['description', 'status', 'browserLogs']));
-                        });
-                      }
+                    if (suiteRes.specs) {
+                      let notes = suiteRes.specs.map((spec) => { return Object.assign({}, _.pick(spec, ['description', 'status', 'browserLogs'])) ; });
                     }
 
                     let testCaseResultData = {
