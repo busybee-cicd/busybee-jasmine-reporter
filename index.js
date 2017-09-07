@@ -122,7 +122,7 @@ class BusybeeJasmineReporter {
                     }
 
                     if (suiteRes.specs) {
-                      let notes = suiteRes.specs.map((spec) => { return Object.assign({}, _.pick(spec, ['description', 'status', 'browserLogs'])) ; });
+                      notes = suiteRes.specs.map((spec) => { return Object.assign({}, _.pick(spec, ['description', 'status', 'browserLogs'])) ; });
                     }
 
                     let testCaseResultData = {
