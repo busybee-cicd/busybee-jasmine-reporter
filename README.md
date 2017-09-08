@@ -1,6 +1,5 @@
 #busybee-jasmine-reporter
 -------
-A basic jasmine reporter with support for posting results to Rally.
 
 ## Quickstart
 
