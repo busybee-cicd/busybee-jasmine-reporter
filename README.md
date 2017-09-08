@@ -31,6 +31,3 @@ onComplete: function() {
             .catch(err => { console.log(err.message); });
 },
 ```
-
-### TODO
-- screenshot attachments of each failure to rally
