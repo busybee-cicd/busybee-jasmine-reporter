@@ -1,8 +1,9 @@
-#busybee-jasmine-reporter
+# busybee-jasmine-reporter
 -------
 
 ## Quickstart
 
+1.
 protractor.conf.js
 ```
 var BusybeeReporter = require ('busybee-jasmine-reporter');
@@ -30,3 +31,7 @@ onComplete: function() {
             .catch(err => { console.log(err.message); });
 },
 ```
+
+2. run your tests
+3. go to Rally. Select the workspace specified in your config
+4. navigate to Quality -> Test Plan
