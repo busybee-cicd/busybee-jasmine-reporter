@@ -1,2 +1,4 @@
 node_modules/
-testRally.js
+test.js
+.idea/
+it/config.*
