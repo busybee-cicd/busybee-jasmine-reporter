@@ -1,0 +1,180 @@
+{
+  "change_hover_on_equipment-admin - Results Card background changes color when user hovers over card": {
+    "description": "change_hover_on_equipment-admin - Results Card background changes color when user hovers over card",
+    "specs": [
+      {
+        "description": "before",
+        "failedExpectations": [],
+        "status": "passed",
+        "browserLogs": [
+          {
+            "level": "WARNING",
+            "message": "http://localhost/web-components.html 5730:8 \"Could not find style data in module named\"",
+            "timestamp": 1511275955287,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/user - Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+            "timestamp": 1511275956746,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/user - Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+            "timestamp": 1511275956775,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/user - Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+            "timestamp": 1511275956777,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/configreviewer/v1/notifications/unread - Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+            "timestamp": 1511275956794,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "webpack-internal:///0 1226:18 \"ERROR\"",
+            "timestamp": 1511275956797,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/essentials - Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "timestamp": 1511275956800,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "webpack-internal:///0 1226:18 \"ERROR\"",
+            "timestamp": 1511275956810,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "webpack-internal:///0 1226:18 \"ERROR\"",
+            "timestamp": 1511275956812,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "webpack-internal:///0 1226:18 \"ERROR\"",
+            "timestamp": 1511275956814,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/configreviewer/v1/attributes/equip-types - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+            "timestamp": 1511275961965,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/configreviewer/v1/attributes - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+            "timestamp": 1511275961965,
+            "type": ""
+          },
+          {
+            "level": "WARNING",
+            "message": "http://localhost/web-components.html 5730:8 \"Could not find style data in module named\"",
+            "timestamp": 1511275962048,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/essentials - Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "timestamp": 1511275963254,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/essentials - Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "timestamp": 1511275965382,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/configreviewer/v1/attributes/equip-types - Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+            "timestamp": 1511275996041,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "http://localhost:3000/configreviewer/v1/attributes - Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+            "timestamp": 1511275996071,
+            "type": ""
+          }
+        ]
+      },
+      {
+        "description": "Given I am on the search page",
+        "failedExpectations": [],
+        "status": "passed"
+      },
+      {
+        "description": "And I search for a site",
+        "failedExpectations": [
+          {
+            "matcherName": "",
+            "message": "Failed: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])",
+            "stack": "NoSuchElementError: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])\n    at elementArrayFinder.getWebElements.then (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:851:17)\n    at ManagedPromise.invokeCallback_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1366:14)\n    at TaskQueue.execute_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2970:14)\n    at TaskQueue.executeNext_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2953:27)\n    at asyncRun (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2813:27)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:676:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:482:23)\n    at ElementArrayFinder.(anonymous function).args [as getCssValue] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:96:21)\n    at ElementFinder.(anonymous function).args [as getCssValue] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:873:14)\n    at hasCssValue (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/matchers/customMatchers.js:15:23)\n    at compare (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/matchers/customMatchers.js:62:24)\n    at compare (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:284:35)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:269:16\n    at resolveAt (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:62:14)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:66:16\n    at maybePromise (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:43:12)\nFrom: Task: Run it(\"And I search for a site\") in control flow\n    at UserContext.<anonymous> (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:94:19)\n    at attempt (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4071:26)\n    at QueueRunner.run (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3991:20)\n    at runNext (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4031:20)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4038:13\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3946:9\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:64:48\n    at ControlFlow.emit (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/events.js:62:21)\n    at ControlFlow.shutdown_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2565:10)\n    at shutdownTask_.MicroTask (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2490:53)\nFrom asynchronous test: \nError\n    at /Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:201:29\n    at Array.forEach (native)\n    at Suite.describe (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:200:40)\n    at addSpecsToSuite (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1013:25)\n    at Env.describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:980:7)\n    at describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4163:18)\n    at feature.scenarios.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:152:17)\n    at Array.forEach (native)\n    at features.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:150:31)",
+            "passed": false,
+            "expected": "",
+            "actual": ""
+          }
+        ],
+        "status": "failed",
+        "browserLogs": [
+          {
+            "level": "SEVERE",
+            "message": "ng:///AdvancedSearchModule/AdvancedSearchComponent.ngfactory.js 1109:44 \"ERROR\"",
+            "timestamp": 1511275996422,
+            "type": ""
+          },
+          {
+            "level": "SEVERE",
+            "message": "ng:///AdvancedSearchModule/AdvancedSearchComponent.ngfactory.js 1109:44 \"ERROR CONTEXT\"",
+            "timestamp": 1511275996422,
+            "type": ""
+          }
+        ]
+      },
+      {
+        "description": "When I move my mouse over a result card",
+        "failedExpectations": [
+          {
+            "matcherName": "",
+            "message": "Failed: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])",
+            "stack": "NoSuchElementError: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])\n    at elementArrayFinder.getWebElements.then (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:851:17)\n    at ManagedPromise.invokeCallback_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1366:14)\n    at TaskQueue.execute_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2970:14)\n    at TaskQueue.executeNext_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2953:27)\n    at asyncRun (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2813:27)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:676:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:482:23)\n    at ElementArrayFinder.(anonymous function).args [as getId] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:96:21)\n    at ElementFinder.(anonymous function).args [as getId] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:873:14)\n    at ActionSequence.mouseMove (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/actions.js:151:44)\n    at Object.moveMouseToElement (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/utils/inputActivity.js:28:14)\n    at UserContext.<anonymous> (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/features/search/change-hover-on-equipment/change_hover_on_equipment-admin.spec.js:38:22)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:112:25\n    at new ManagedPromise (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1067:7)\n    at ControlFlow.promise (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2396:12)\n    at schedulerExecute (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:95:18)\nFrom: Task: Run it(\"When I move my mouse over a result card\") in control flow\n    at UserContext.<anonymous> (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:94:19)\n    at attempt (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4071:26)\n    at QueueRunner.run (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3991:20)\n    at runNext (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4031:20)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4038:13\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3946:9\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:64:48\n    at ControlFlow.emit (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/events.js:62:21)\n    at ControlFlow.shutdown_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2565:10)\n    at shutdownTask_.MicroTask (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2490:53)\nFrom asynchronous test: \nError\n    at /Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:201:29\n    at Array.forEach (native)\n    at Suite.describe (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:200:40)\n    at addSpecsToSuite (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1013:25)\n    at Env.describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:980:7)\n    at describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4163:18)\n    at feature.scenarios.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:152:17)\n    at Array.forEach (native)\n    at features.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:150:31)",
+            "passed": false,
+            "expected": "",
+            "actual": ""
+          }
+        ],
+        "status": "failed"
+      },
+      {
+        "description": "Then The card background changes to blue",
+        "failedExpectations": [
+          {
+            "matcherName": "",
+            "message": "Failed: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])",
+            "stack": "NoSuchElementError: No element found using locator: By(xpath, //*[@class = 'list--card search-results']/child::div[1])\n    at elementArrayFinder.getWebElements.then (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:851:17)\n    at ManagedPromise.invokeCallback_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1366:14)\n    at TaskQueue.execute_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2970:14)\n    at TaskQueue.executeNext_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2953:27)\n    at asyncRun (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2813:27)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:676:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:482:23)\n    at ElementArrayFinder.(anonymous function).args [as getCssValue] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:96:21)\n    at ElementFinder.(anonymous function).args [as getCssValue] (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/lib/element.ts:873:14)\n    at hasCssValue (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/matchers/customMatchers.js:15:23)\n    at compare (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/matchers/customMatchers.js:62:24)\n    at compare (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:284:35)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:269:16\n    at resolveAt (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:62:14)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:66:16\n    at maybePromise (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/maybePromise.js:43:12)\nFrom: Task: Run it(\"Then The card background changes to blue\") in control flow\n    at UserContext.<anonymous> (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:94:19)\n    at attempt (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4071:26)\n    at QueueRunner.run (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3991:20)\n    at runNext (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4031:20)\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4038:13\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:3946:9\n    at /Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasminewd2/index.js:64:48\n    at ControlFlow.emit (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/events.js:62:21)\n    at ControlFlow.shutdown_ (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2565:10)\n    at shutdownTask_.MicroTask (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2490:53)\nFrom asynchronous test: \nError\n    at /Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:201:29\n    at Array.forEach (native)\n    at Suite.describe (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:200:40)\n    at addSpecsToSuite (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1013:25)\n    at Env.describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:980:7)\n    at describe (/Users/simontownsend/.nvm/versions/node/v8.2.1/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4163:18)\n    at feature.scenarios.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:152:17)\n    at Array.forEach (native)\n    at features.forEach (/Users/simontownsend/dev/config-reviewer/grayskull-shell/modules/config-reviewer-ui/tests/e2e/node_modules/pimmsCup/src/runner/runner.js:150:31)",
+            "passed": false,
+            "expected": "",
+            "actual": ""
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "hasFailures": true,
+    "status": "finished",
+    "failedExpectations": []
+  }
+}

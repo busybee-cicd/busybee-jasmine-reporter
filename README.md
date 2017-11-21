@@ -1,7 +1,10 @@
 # busybee-jasmine-reporter
 -------
+A Jasmine reporter that will push test results to Rally and Flowdock.
 
 ## Quickstart
+
+**v1.2.0 Requires NodeJS 8 or higher**
 
 1.
 protractor.conf.js
@@ -20,13 +23,23 @@ var busybeeReporter = new BusybeeReporter({
               'X-RallyIntegrationVersion': '1.0'
           }
       }
-    }
+    },
+    flowdock: {
+        token: '<your_app_token>',
+        author: {
+          name: 'Sweeney Jenkins',
+          avatar: 'https://github.build.ge.com/avatars/u/<your_image>',
+          email: '<you_app_email>@ge.com'
+        },
+        threadId: 'it-results',
+        threadTitle: 'Our App IT Results'
+      }
 });
 
 
-// in order to have results posted to rally you MUST call publishToRally in onComplete
+// in order to have results posted to rally you MUST call publish in onComplete
 onComplete: function() {
-    return busybeeReporter.publishToRally()
+    return busybeeReporter.publish()
             .then(results => { console.log(JSON.stringify(results, null, '\t')); })
             .catch(err => { console.log(err.message); });
 },
