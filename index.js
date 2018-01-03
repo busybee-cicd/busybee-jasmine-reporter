@@ -1,6 +1,6 @@
 const _ = require('lodash');
-const BusybeeRally = require('./lib/BusybeeRally');
-const BusybeeFlowdock = require('./lib/BusybeeFlowdock');
+const BusybeeRally = require('./lib/Rally');
+const BusybeeFlowdock = require('./lib/Flowdock');
 const Logger = require('./lib/Logger');
 const logger = new Logger();
 
