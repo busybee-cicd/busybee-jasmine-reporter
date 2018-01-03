@@ -1,4 +1,4 @@
-# busybee-jasmine-reporter
+# jasmine-rally-reporter
 -------
 A Jasmine reporter that will push test results to Rally and Flowdock.
 
@@ -9,8 +9,8 @@ A Jasmine reporter that will push test results to Rally and Flowdock.
 1.
 protractor.conf.js
 ```
-var BusybeeReporter = require ('busybee-jasmine-reporter');
-var busybeeReporter = new BusybeeReporter({
+var JasmineRallyReporter = require ('jasmine-rally-reporter');
+var jasmineRallyReporter = new JasmineRallyReporter({
     rally: {
       workspace: 'My Rally Workspace',
       project: 'My Rally Project',
@@ -39,7 +39,7 @@ var busybeeReporter = new BusybeeReporter({
 
 // in order to have results posted to rally you MUST call publish in onComplete
 onComplete: function() {
-    return busybeeReporter.publish()
+    return jasmineRallyReporter.publish()
             .then(results => { console.log(JSON.stringify(results, null, '\t')); })
             .catch(err => { console.log(err.message); });
 },
