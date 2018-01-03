@@ -1,6 +1,6 @@
 {
   "name": "jasmine-rally-reporter",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A jasmine reporter that pushes results to a Rally TestFolder",
   "main": "index.js",
   "author": "Simon Townsend",
