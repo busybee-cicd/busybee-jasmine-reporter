@@ -1,11 +1,8 @@
 {
-  "name": "busybee-jasmine-reporter",
+  "name": "jasmine-rally-reporter",
   "version": "1.2.3",
-  "description": "",
+  "description": "A jasmine reporter that pushes results to a Rally TestFolder",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test spe  cified\" && exit 1"
-  },
   "author": "Simon Townsend",
   "license": "ISC",
   "dependencies": {

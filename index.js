@@ -4,7 +4,7 @@ const BusybeeFlowdock = require('./lib/BusybeeFlowdock');
 const Logger = require('./lib/Logger');
 const logger = new Logger();
 
-class BusybeeJasmineReporter {
+class JasmineRallyReporter {
   constructor(opts) {
     this.opts = opts;
     logger.debug(opts);
@@ -107,4 +107,4 @@ class BusybeeJasmineReporter {
 }
 
 
-module.exports = BusybeeJasmineReporter;
+module.exports = JasmineRallyReporter;
