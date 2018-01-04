@@ -11,6 +11,6 @@
     "lodash": "^4.17.4",
     "rally": "^2.1.2",
     "request": "^2.83.0",
-    "busybee-rally": "git+ssh://git@github.build.ge.com/Busybee/busybee-rally.git#1.0.1"
+    "busybee-rally": "git+ssh://git@github.build.ge.com/Busybee/busybee-rally.git#1.0.2"
   }
 }
