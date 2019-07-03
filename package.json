@@ -1,19 +1,16 @@
 {
-  "name": "jasmine-rally-reporter",
+  "name": "busybee-jasmine-reporter",
   "version": "1.2.6",
   "description": "A jasmine reporter that pushes results to a Rally TestFolder",
   "main": "index.js",
   "author": "Simon Townsend",
-  "license": "ISC",
-  "repository": "git@github.build.ge.com:Busybee/jasmine-rally-reporter.git",
+  "license": "MIT",
+  "repository": "git@github.com:busybee-cicd/busybee-jasmine-reporter.git",
   "dependencies": {
     "async": "^2.6.0",
     "lodash": "^4.17.4",
     "rally": "^2.1.2",
     "request": "^2.83.0",
     "busybee-rally": "1.0.2"
-  },
-  "publishConfig": {
-    "registry": "https://devcloud.swcoe.ge.com/artifactory/api/npm/OAMFZ/"
   }
 }

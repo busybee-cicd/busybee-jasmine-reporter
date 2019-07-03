@@ -1,16 +1,16 @@
-# jasmine-rally-reporter
+# busybee-jasmine-reporter
 -------
 A Jasmine reporter that will push test results to Rally and Flowdock.
 
-## Quickstart
 
+## Quickstart
 **v1.2.0 Requires NodeJS 8 or higher**
 
 1.
 protractor.conf.js
 ```
-var JasmineRallyReporter = require ('jasmine-rally-reporter');
-var jasmineRallyReporter = new JasmineRallyReporter({
+var BusybeeJasmineReporter = require ('busybee-jasmine-reporter');
+var busybeeJasmineReporter = new BusybeeJasmineReporter({
     rally: {
       workspace: 'My Rally Workspace',
       project: 'My Rally Project',
@@ -19,7 +19,7 @@ var jasmineRallyReporter = new JasmineRallyReporter({
       requestOptions: {
           headers: {
               'X-RallyIntegrationName': 'My Integration Tests',
-              'X-RallyIntegrationVendor': 'GE',
+              'X-RallyIntegrationVendor': 'MyCompany',
               'X-RallyIntegrationVersion': '1.0'
           }
       }
@@ -28,8 +28,8 @@ var jasmineRallyReporter = new JasmineRallyReporter({
         token: '<your_app_token>',
         author: {
           name: 'Sweeney Jenkins',
-          avatar: 'https://github.build.ge.com/avatars/u/<your_image>',
-          email: '<you_app_email>@ge.com'
+          avatar: 'https://github.com/avatars/u/<your_image>',
+          email: '<you_app_email>@email.com'
         },
         threadId: 'it-results',
         threadTitle: 'Our App IT Results'
@@ -39,7 +39,7 @@ var jasmineRallyReporter = new JasmineRallyReporter({
 
 // in order to have results posted to rally you MUST call publish in onComplete
 onComplete: function() {
-    return jasmineRallyReporter.publish()
+    return busybeeJasmineReporter.publish()
             .then(results => { console.log(JSON.stringify(results, null, '\t')); })
             .catch(err => { console.log(err.message); });
 },
@@ -48,3 +48,6 @@ onComplete: function() {
 2. run your tests
 3. go to Rally. Select the workspace specified in your config
 4. navigate to Quality -> Test Plan
+
+## License
+MIT © [stowns](https://github.com/stowns)
